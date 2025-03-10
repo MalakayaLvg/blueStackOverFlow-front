@@ -10,7 +10,7 @@
         <span class="navbar-toggler-icon"></span>
       </button>
       <div>
-        <a class="btn btn-primary me-2" href="/">Login</a>
+        <a class="btn btn-primary me-2" href="/login">Login</a>
         <a class="btn btn-outline-primary me-2" href="/">Sign Up</a>
         <a class="btn btn-outline-primary me-2 rounded-circle" href="/"><i class="bi bi-person"></i></a>
       </div>
