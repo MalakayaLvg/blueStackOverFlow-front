@@ -7,7 +7,10 @@ import Header from "@/components/Header.vue";
 <template>
   <Navbar></Navbar>
   <Header></Header>
-  <RouterView></RouterView>
+  <div class="container">
+    <RouterView></RouterView>
+  </div>
+
 </template>
 
 <style scoped>
