@@ -7,14 +7,24 @@ import SearchBar from "@/components/SearchBar.vue";
 
 const questions = ref([])
 
-onMounted(() => {
+const fetchPosts = () => {
   fetch("http://localhost:8000/api/questions")
       .then(res => res.json())
       .then(data => {
         questions.value = data
       })
       .catch(err => console.log(err.message))
+}
+
+
+onMounted(() => {
+  fetchPosts()
 })
+
+const handlePostCreated = (newPost) => {
+  questions.value.unshift(newPost)
+  fetchPosts()
+}
 
 </script>
 

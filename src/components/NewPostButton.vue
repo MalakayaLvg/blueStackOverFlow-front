@@ -1,30 +1,63 @@
 <script setup>
 
 import { ref } from 'vue'
+import axios from 'axios'
+import { useStore } from 'vuex'
 
+const store = useStore()
 const isModalOpen = ref(false)
 const postContent = ref('')
+const postTitle = ref('')
+const isSubmitting = ref(false)
+const error = ref(null)
 
 const openModal = () => {
   isModalOpen.value = true
-  // Empêcher le défilement du contenu en arrière-plan
   document.body.style.overflow = 'hidden'
 }
 
 const closeModal = () => {
   isModalOpen.value = false
   postContent.value = ''
+  postTitle.value = ''
+  error.value = null
+  isSubmitting.value = false
   // Réactiver le défilement
   document.body.style.overflow = 'auto'
 }
 
-const submitPost = () => {
-  if (postContent.value.trim()) {
-    // Ici vous pouvez ajouter la logique pour envoyer le post à votre API
-    console.log('Post soumis:', postContent.value)
-    // Émettre un événement que le composant parent peut écouter
-    emit('post-created', postContent.value)
-    closeModal()
+const submitPost = async () => {
+  if (postTitle.value.trim() && postContent.value.trim()) {
+    try {
+      isSubmitting.value = true
+      error.value = null
+
+      const questionData = {
+        title: postTitle.value.trim(),
+        body: postContent.value.trim()
+      }
+
+      // L'en-tête Authorization est déjà défini par défaut après la connexion
+      // grâce à axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
+      const response = await axios.post('http://localhost:8000/api/questions/', questionData)
+
+      if (response.status === 201) {
+        emit('post-created', response.data)
+        closeModal()
+      }
+    } catch (err) {
+      // Si l'erreur est 401 (non autorisé), l'utilisateur doit se reconnecter
+      if (err.response?.status === 401) {
+        error.value = "Votre session a expiré. Veuillez vous reconnecter."
+        // Optionnellement, vous pouvez rediriger vers la page de connexion
+        // router.push('/login')
+      } else {
+        error.value = err.response?.data?.message || 'Une erreur est survenue'
+      }
+      console.error('Erreur lors de la soumission:', err)
+    } finally {
+      isSubmitting.value = false
+    }
   }
 }
 
@@ -35,7 +68,9 @@ const emit = defineEmits(['post-created'])
 
 <template>
   <div class="my-4 me-4">
-    <button @click="openModal" class="btn btn-primary d-flex align-items-center"><i class="bi bi-plus-circle fs-4 me-2"></i>new post</button>
+    <button @click="openModal" class="btn btn-primary d-flex align-items-center">
+      <i class="bi bi-plus-circle fs-4 me-2"></i>new post
+    </button>
   </div>
 
   <Teleport to="body">
@@ -48,13 +83,19 @@ const emit = defineEmits(['post-created'])
 
         <div class="modal-body">
           <form @submit.prevent="submitPost">
+            <!-- Message d'erreur -->
+            <div v-if="error" class="alert alert-danger mb-3">{{ error }}</div>
+
+            <!-- Champ pour le titre -->
             <textarea
-              type="text"
-              placeholder="Your question title"
-              class="post-textarea"
-              rows="1"
+                v-model="postTitle"
+                placeholder="Your question title"
+                class="post-textarea"
+                rows="1"
             ></textarea>
             <hr>
+
+            <!-- Champ pour le contenu -->
             <textarea
                 v-model="postContent"
                 placeholder="your question description"
@@ -66,9 +107,10 @@ const emit = defineEmits(['post-created'])
               <button
                   type="submit"
                   class="btn btn-primary me-2"
-                  :disabled="!postContent.trim()"
+                  :disabled="!postTitle.trim() || !postContent.trim() || isSubmitting"
               >
-                Poster
+                <span v-if="isSubmitting" class="spinner-border spinner-border-sm me-1"></span>
+                {{ isSubmitting ? 'Envoi en cours...' : 'Poster' }}
               </button>
             </div>
           </form>
@@ -76,7 +118,6 @@ const emit = defineEmits(['post-created'])
       </div>
     </div>
   </Teleport>
-
 </template>
 
 <style scoped>
