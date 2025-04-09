@@ -5,7 +5,15 @@ import { jwtDecode } from "jwt-decode";
 export default createStore({
     state: {
         token: localStorage.getItem('token') || null,
-        user: JSON.parse(localStorage.getItem('user')) || null
+        user: (() => {
+            const userData = localStorage.getItem('user');
+            try {
+                return userData ? JSON.parse(userData) : null;
+            } catch (e) {
+                localStorage.removeItem('user');
+                return null;
+            }
+        })()
     },
     getters: {
         isLoggedIn: state => !!state.token,

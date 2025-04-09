@@ -3,6 +3,7 @@
 import { ref } from 'vue'
 import axios from 'axios'
 import { useStore } from 'vuex'
+import router from "@/router/index.js";
 
 const store = useStore()
 const isModalOpen = ref(false)
@@ -22,7 +23,6 @@ const closeModal = () => {
   postTitle.value = ''
   error.value = null
   isSubmitting.value = false
-  // Réactiver le défilement
   document.body.style.overflow = 'auto'
 }
 
@@ -37,8 +37,6 @@ const submitPost = async () => {
         body: postContent.value.trim()
       }
 
-      // L'en-tête Authorization est déjà défini par défaut après la connexion
-      // grâce à axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       const response = await axios.post('http://localhost:8000/api/questions/', questionData)
 
       if (response.status === 201) {
@@ -46,11 +44,9 @@ const submitPost = async () => {
         closeModal()
       }
     } catch (err) {
-      // Si l'erreur est 401 (non autorisé), l'utilisateur doit se reconnecter
       if (err.response?.status === 401) {
         error.value = "Votre session a expiré. Veuillez vous reconnecter."
-        // Optionnellement, vous pouvez rediriger vers la page de connexion
-        // router.push('/login')
+        router.push('/login')
       } else {
         error.value = err.response?.data?.message || 'Une erreur est survenue'
       }
@@ -61,7 +57,6 @@ const submitPost = async () => {
   }
 }
 
-// Définition de l'émetteur d'événements
 const emit = defineEmits(['post-created'])
 
 </script>
@@ -83,10 +78,9 @@ const emit = defineEmits(['post-created'])
 
         <div class="modal-body">
           <form @submit.prevent="submitPost">
-            <!-- Message d'erreur -->
+
             <div v-if="error" class="alert alert-danger mb-3">{{ error }}</div>
 
-            <!-- Champ pour le titre -->
             <textarea
                 v-model="postTitle"
                 placeholder="Your question title"
@@ -95,7 +89,6 @@ const emit = defineEmits(['post-created'])
             ></textarea>
             <hr>
 
-            <!-- Champ pour le contenu -->
             <textarea
                 v-model="postContent"
                 placeholder="your question description"

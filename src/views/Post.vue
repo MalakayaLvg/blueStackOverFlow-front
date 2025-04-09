@@ -52,7 +52,7 @@ const upVote = () => {
       .then(res => {
         console.log(res)
         isUpvoted.value = !isUpvoted.value
-        // Si upvote est activé, désactiver le downvote
+
         if (isUpvoted.value) {
           isDownvoted.value = false
         }
@@ -70,7 +70,7 @@ const downVote = () => {
       .then(res => {
         console.log(res)
         isDownvoted.value = !isDownvoted.value
-        // Si downvote est activé, désactiver l'upvote
+
         if (isDownvoted.value) {
           isUpvoted.value = false
         }
@@ -144,7 +144,7 @@ const downVoteAnswer = (answerId) => {
       .then(res => {
         console.log(res)
         isDownvoted.value = !isDownvoted.value
-        // Si downvote est activé, désactiver l'upvote
+
         if (isDownvoted.value) {
           isUpvoted.value = false
         }
