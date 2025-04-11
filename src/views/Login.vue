@@ -1,8 +1,7 @@
 <script setup>
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
-import store from '../store' // Import direct du store
-
+import store from '../store'
 const router = useRouter()
 
 const credentials = reactive({
@@ -68,6 +67,9 @@ const submitLogin = async () => {
       <button class="btn btn-primary my-3" type="submit" :disabled="loading">
         {{ loading ? 'Connexion en cours...' : 'Se connecter' }}
       </button>
+      <div class="text-center mt-3">
+        <p>Pas encore inscrit ? <router-link to="/register">Créer un compte</router-link></p>
+      </div>
     </form>
   </div>
 </template>

@@ -3,7 +3,7 @@ import store from "@/store/index.js";
 import router from "@/router/index.js";
 
 const api = axios.create({
-    baseURL: "http://localhost:8000"
+    baseURL: "https://back-bluestackover.malakayalauvergnat.com"
 })
 
 api.interceptors.request.use(config => {

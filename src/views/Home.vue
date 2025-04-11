@@ -10,7 +10,7 @@ const allQuestions = ref([]);
 const isSearching = ref(false);
 
 const fetchPosts = () => {
-  fetch("http://localhost:8000/api/questions")
+  fetch("https://back-bluestackover.malakayalauvergnat.com/api/questions")
       .then(res => res.json())
       .then(data => {
         questions.value = data;

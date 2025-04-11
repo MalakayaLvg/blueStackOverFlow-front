@@ -37,7 +37,7 @@ const submitPost = async () => {
         body: postContent.value.trim()
       }
 
-      const response = await axios.post('http://localhost:8000/api/questions/', questionData)
+      const response = await axios.post('https://back-bluestackover.malakayalauvergnat.com/api/questions/', questionData)
 
       if (response.status === 201) {
         emit('post-created', response.data)

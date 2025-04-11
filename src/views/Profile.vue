@@ -15,7 +15,7 @@ onMounted(async () => {
   try {
     const token = store.state.token;
 
-    const response = await axios.get('http://localhost:8000/api/profile/', {
+    const response = await axios.get('https://back-bluestackover.malakayalauvergnat.com/api/profile/', {
       headers: {
         'Authorization': `Bearer ${token}`
       }
@@ -37,7 +37,7 @@ onMounted(async () => {
 const updateProfile = async () => {
   try {
     const token = store.state.token;
-    const response = await axios.put('http://localhost:8000/api/profile/edit/', {
+    const response = await axios.put('https://back-bluestackover.malakayalauvergnat.com/api/profile/edit/', {
       username: username.value,
       email: email.value,
       ...(password.value ? { password: password.value } : {})

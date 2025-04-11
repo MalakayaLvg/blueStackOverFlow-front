@@ -21,7 +21,7 @@ const isEditingAnswer = ref(null)
 const editAnswerBody = ref("")
 
 const fetchPost = () => {
-  fetch(`http://localhost:8000/api/questions/${id.value}/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/questions/${id.value}/`,{
     method: 'GET'
   })
       .then(res => res.json())
@@ -35,7 +35,7 @@ const fetchPost = () => {
 }
 
 const deletePost = () => {
-  fetch(`http://localhost:8000/api/questions/${id.value}/`, {
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/questions/${id.value}/`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ const saveEdit = () => {
     body: editBody.value
   }
 
-  fetch(`http://localhost:8000/api/questions/${id.value}/`, {
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/questions/${id.value}/`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -81,7 +81,7 @@ const saveEdit = () => {
 }
 
 const upVote = () => {
-  fetch(`http://localhost:8000/api/questions/${id.value}/upvote/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/questions/${id.value}/upvote/`,{
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`
@@ -100,7 +100,7 @@ const upVote = () => {
 }
 
 const downVote = () => {
-  fetch(`http://localhost:8000/api/questions/${id.value}/downvote/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/questions/${id.value}/downvote/`,{
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`
@@ -124,7 +124,7 @@ const answerPost = () => {
     question: id.value,
     body: answerBody.value
   }
-  fetch(`http://localhost:8000/api/answers/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/answers/`,{
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -143,7 +143,7 @@ const answerPost = () => {
 }
 
 const deleteAnswer = (answerId) => {
-  fetch(`http://localhost:8000/api/answers/${answerId}/`, {
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/answers/${answerId}/`, {
     method: 'DELETE',
     headers: {
       Authorization: `Bearer ${token}`,
@@ -157,7 +157,7 @@ const deleteAnswer = (answerId) => {
 }
 
 const upVoteAnswer = (answerId) => {
-  fetch(`http://localhost:8000/api/answers/${answerId}/upvote/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/answers/${answerId}/upvote/`,{
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`
@@ -176,7 +176,7 @@ const upVoteAnswer = (answerId) => {
 
 const downVoteAnswer = (answerId) => {
   console.log(answerId)
-  fetch(`http://localhost:8000/api/answers/${answerId}/downvote/`,{
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/answers/${answerId}/downvote/`,{
     method: 'POST',
     headers: {
       Authorization: `Bearer ${token}`
@@ -212,7 +212,7 @@ const saveEditAnswer = (answerId) => {
     body: editAnswerBody.value
   }
 
-  fetch(`http://localhost:8000/api/answers/${answerId}/`, {
+  fetch(`https://back-bluestackover.malakayalauvergnat.com/api/answers/${answerId}/`, {
     method: 'PUT',
     headers: {
       Authorization: `Bearer ${token}`,

@@ -15,7 +15,7 @@ onMounted(async () => {
   if (isLoggedIn.value) {
     try {
       const token = store.state.token;
-      const response = await axios.get('http://localhost:8000/api/profile/', {
+      const response = await axios.get('https://back-bluestackover.malakayalauvergnat.com/api/profile/', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -48,7 +48,7 @@ const logout = () => {
       <div>
         <template v-if="!isLoggedIn">
           <a class="btn btn-primary me-2" href="/login">Login</a>
-          <a class="btn btn-outline-primary me-2" href="/">Sign Up</a>
+          <a class="btn btn-outline-primary me-2" href="/register">Sign Up</a>
         </template>
         <template v-else>
           <span class="me-3">Bonjour, {{ username || user.username || 'utilisateur' }}</span>

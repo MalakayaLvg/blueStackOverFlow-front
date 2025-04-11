@@ -5,6 +5,7 @@ import Login from '../views/Login.vue'
 import Home from "@/views/Home.vue";
 import Post from "@/views/Post.vue";
 import Profile from "@/views/Profile.vue";
+import Register from "@/views/Register.vue";
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +24,14 @@ const router = createRouter({
             path: '/login',
             name: 'Login',
             component: Login,
+            meta: {
+                guestOnly: true
+            }
+        },
+        {
+            path: '/register',
+            name: 'Register',
+            component: Register,
             meta: {
                 guestOnly: true
             }
