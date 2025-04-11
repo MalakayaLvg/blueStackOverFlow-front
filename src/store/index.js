@@ -39,7 +39,7 @@ export default createStore({
     actions: {
         async login({ commit }, credentials){
             try {
-                const response = axios.post('http://localhost:8000/login/', credentials)
+                const response = axios.post('https://back-bluestackover.malakayalauvergnat.com/login/', credentials)
 
                 console.log((await response).data)
 
