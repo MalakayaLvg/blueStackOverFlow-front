@@ -32,7 +32,7 @@ const submitRegister = async () => {
   error.value = null
 
   try {
-    const response = await axios.post('https://back-bluestackover.malakayalauvergnat/register/', {
+    const response = await axios.post('https://back-bluestackover.malakayalauvergnat.com/register/', {
       username: userData.username,
       email: userData.email,
       password: userData.password
