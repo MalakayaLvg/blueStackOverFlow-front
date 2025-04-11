@@ -2,6 +2,7 @@
 import { ref, reactive } from 'vue'
 import { useRouter } from 'vue-router'
 import api from '../services/api'
+import axios from "axios";
 const router = useRouter()
 
 const userData = reactive({
@@ -31,7 +32,7 @@ const submitRegister = async () => {
   error.value = null
 
   try {
-    const response = await api.post('/register', {
+    const response = await axios.post('https://back-bluestackover.malakayalauvergnat/register/', {
       username: userData.username,
       email: userData.email,
       password: userData.password
