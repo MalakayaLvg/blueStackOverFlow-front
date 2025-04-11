@@ -31,7 +31,7 @@ const submitRegister = async () => {
   error.value = null
 
   try {
-    const response = await api.post('/auth/register', {
+    const response = await api.post('/register', {
       username: userData.username,
       email: userData.email,
       password: userData.password
